@@ -5,7 +5,8 @@ import { API_URL } from "./constants";
 import { FormState, LoginFormSchema, SignUpFormSchema } from "./type";
 import { responseCookiesToRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { userInfo } from "os";
-import { createSession } from "./session";
+import { createSession, updateTokens } from "./session";
+import { threadId } from "worker_threads";
 
 export async function signup(state: FormState, formData:FormData): Promise<FormState> {
     const validationFields = SignUpFormSchema.safeParse({
@@ -61,7 +62,9 @@ export async function signIn(state:FormState, formData:FormData): Promise<FormSt
             user: {
                 id: result.id,
                 username: result.username
-            }
+            },
+            accessToken: result.accessToken,
+            refreshToken: result.refreshToken
         })
         redirect("/");
     }
@@ -69,5 +72,36 @@ export async function signIn(state:FormState, formData:FormData): Promise<FormSt
         return {
             message: res.status === 401 ? "Invalid credentials" : res.statusText
         }
+    }
+}
+
+export const refreshToken = async (oldRefreshToken:string) => {
+    try{
+        console.log(oldRefreshToken)
+        const response = await fetch(`${API_URL}/auth/refresh`, {
+            method:"POST",
+            headers:{
+                "Content-Type" : "application/json",
+            },
+            body: JSON.stringify({
+                refresh: oldRefreshToken
+            })
+        })
+        if(!response.ok) throw Error("Failed to refresh token: " + response.statusText)
+
+        const {accessToken, refreshToken} = await response.json();
+        const updateRes = await fetch("http://localhost:3000/api/auth/update", {
+            method: "POST",
+            body: JSON.stringify({
+                accessToken,
+                refreshToken
+            }),
+        });
+        if(!updateRes.ok) throw new Error("Failed to update tokens")
+
+        return accessToken;
+    }catch (err) {
+        console.error("Refresh token failed:", err)
+        return null
     }
 }

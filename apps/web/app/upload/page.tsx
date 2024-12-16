@@ -6,7 +6,6 @@ const UploadPage = async () => {
     const session = await getSession();
 
     if(!session || !session.user) redirect("/auth/signin");
-  
     return (
     <div>UploadPage</div>
   )

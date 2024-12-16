@@ -4,9 +4,7 @@ import Link from 'next/link'
 
 const NavButton = async () => {
     const session = await getSession();
-    if(session){
-        console.log(session)
-    }
+
     return (
       <div className='flex items-center gap-2 ml-auto'>
         {!session || !session.user ? (

@@ -1,12 +1,12 @@
-"use client"
-
 import Image, { type ImageProps } from "next/image";
 import { Button } from "@repo/ui/button";
-import createGlobalStyle from "../styles/global.js"
 import Navbar from "./components/navbar";
+import { getSession } from "./lib/session";
 
-export default function Home() {
-
+export default async function Home() {
+  const session = await getSession()
+  
+  console.log(session)
   return (
     <>
     </>
