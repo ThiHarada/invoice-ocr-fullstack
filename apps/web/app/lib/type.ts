@@ -1,4 +1,3 @@
-import { emitWarning } from "process";
 import { z } from "zod";
 
 export type FormState = {
@@ -7,6 +6,14 @@ export type FormState = {
         password?: string[];
     };
     message?: string;
+} | undefined;
+
+export type InvoiceUploadState = {
+    error?: {
+        content?: string[];
+    };
+    message?: string;
+    ok:boolean;
 } | undefined;
 
 export const SignUpFormSchema = z.object({

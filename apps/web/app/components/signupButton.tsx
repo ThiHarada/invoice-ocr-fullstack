@@ -5,7 +5,7 @@ const SignupButton = ({children} : PropsWithChildren) => {
   const {pending} = useFormStatus();
   
     return (
-    <button type='submit' aria-disabled={pending}>
+    <button type='submit' aria-disabled={pending} className='rounded-full bg-black text-white font-bold py-2 px-6 hover:bg-gray-800 transition'>
         {pending ? "Submitting..." : children}
     </button>
   )

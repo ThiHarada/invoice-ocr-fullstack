@@ -2,8 +2,6 @@
 
 import { authFetch } from "./authFetch";
 import { API_URL } from "./constants";
-import { getSession } from "./session"
-
 
 export const getProfile = async() => {
     // const session = await getSession();

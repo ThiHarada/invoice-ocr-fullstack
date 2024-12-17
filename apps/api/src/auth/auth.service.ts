@@ -59,7 +59,6 @@ export class AuthService {
     async validateJwtUser(userId:number){
       const user = await this.userService.findOne(userId);
       if (!user) throw new UnauthorizedException("User not found");
-      console.log("usuario autorizado")
       const currUser = { id: user.id }
       return currUser 
     }

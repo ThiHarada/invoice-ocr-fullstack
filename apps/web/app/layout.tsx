@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import AppBar from "./components/navbar";
-
+import { CookiesProvider } from 'next-client-cookies/server';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,10 +26,16 @@ export default function RootLayout({
   return (
     <>
 
-      <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <html lang="en" className="min-h-dvh">
+        <body className={`${geistSans.variable} ${geistMono.variable} flex flex-col min-h-dvh`}>
           <AppBar />
-          {children}
+          <div className="min-h-full flex-1 flex flex-col items-center bg-gradient-to-bl from-violet-400 to-cyan-600 py-5">
+            <div className="w-11/12 bg-white p-7 flex-1 shadow-md rounded-md flex flex-col">    
+            <CookiesProvider>
+                {children}
+            </CookiesProvider>
+            </div>
+          </div>
         </body>
       </html>
     </>

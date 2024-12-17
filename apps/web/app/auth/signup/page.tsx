@@ -1,29 +1,26 @@
-'use client'
-
 import React from 'react'
-import styled, { css } from 'styled-components'
 import FormTemplate from './signupForm'
 import Link from 'next/link'
 
 const SignupPage = () => {
   return (
-    <SignupForm>
-        <h1>
-          Sign up
-        </h1>
-        <FormTemplate/>
-        <p> Already have an account? </p>
-        <Link href="/auth/signin"> Sign in! </Link>
-    </SignupForm>
+    <div className=' flex flex-1'>
+      <div className=' flex flex-col flex-1 p-10'>
+          <div className='flex flex-col h-full flex-1'>
+            <h1 className='font-bold text-3xl font-sans'>
+              Sign up
+            </h1>
+            <FormTemplate/>
+            <p> Already have an account? <Link href="/auth/signin" className=' underline text-cyan-600 '> Sign in! </Link> </p>
+
+          </div>
+      </div>
+      <div className='flex-1'>
+        
+      </div>
+    </div>
+
   )
 }
 
 export default SignupPage
-
-const SignupForm = styled.div `
-    padding: 3rem;
-    min-height: 70dvh;
-    width: 30vw;
-    box-shadow: 0 0 10px var(--foreground);
-    background-color: var(--background);
-`;

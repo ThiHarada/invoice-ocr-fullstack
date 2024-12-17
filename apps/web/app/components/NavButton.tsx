@@ -6,16 +6,16 @@ const NavButton = async () => {
     const session = await getSession();
 
     return (
-      <div className='flex items-center gap-2 ml-auto'>
+      <div className='flex ml-auto'>
         {!session || !session.user ? (
           <>
-            <Link href={"/auth/signin"}>Sign In</Link>
-            <Link href={"/auth/signup"}>Sign Up</Link>
+            <Link href={"/auth/signin"} className=' px-4 flex items-center transition hover:bg-gray-300'>Sign In</Link>
+            <Link href={"/auth/signup"} className=' px-4 flex items-center transition hover:bg-gray-300'>Sign Up</Link>
           </>
         ) : (
           <>
-            <p> {session.user.username} </p>
-            <a href={"/api/auth/signout"}>Sign Out</a>
+            <p className='px-4 flex items-center'> Welcome, {session.user.username} </p>
+            <a href={"/api/auth/signout"} className=' px-4 flex items-center transition hover:bg-gray-300'>Sign Out</a>
           </>
         )}
       </div>

@@ -3,10 +3,7 @@
 import { redirect } from "next/navigation";
 import { API_URL } from "./constants";
 import { FormState, LoginFormSchema, SignUpFormSchema } from "./type";
-import { responseCookiesToRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
-import { userInfo } from "os";
 import { createSession, updateTokens } from "./session";
-import { threadId } from "worker_threads";
 
 export async function signup(state: FormState, formData:FormData): Promise<FormState> {
     const validationFields = SignUpFormSchema.safeParse({

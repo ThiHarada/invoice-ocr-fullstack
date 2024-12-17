@@ -3,8 +3,6 @@
 import {jwtVerify, SignJWT} from "jose"
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { throwDeprecation } from "process";
-import { threadId } from "worker_threads";
 
 export type Session = {
     user:{
