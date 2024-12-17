@@ -1,81 +1,45 @@
-# Turborepo starter
+# Invoice uploader and reader app
 
-This is an official starter Turborepo.
+This project is a complete fullstack app for uploading and reading invoice images (and any other image at that). This was made for a case for a internship selective process. It includes a login and register authentication system with a local database made in SQLite and used with Prisma ORM for both login data and to store the invoices. The invoice reader uses Tesseract OCR, an open-source Optical Character Recognition tool that turns the images into text.
 
-## Using this example
 
-Run the following command:
+# Running the app locally
 
-```sh
-npx create-turbo@latest
-```
+To run the app locally, you will need to have Tesseract installed, you can check their installation guide [Here.](https://tesseract-ocr.github.io/tessdoc/Installation.html)
 
-## What's inside?
+Other than that, you will need npm installed as well.
+After that, run the following command lines from the root directory of this repo:
+`cd apps/api`
+`prisma generate`
+This will ensure that Prisma has all of its schemas and necessary data to run behind the app.
 
-This Turborepo includes the following packages/apps:
+You will also need to set the .env files up.
+Just create two different `.env` files, one inside `apps/web` and the other in `apps/api`, each with its own contents:
 
-### Apps and Packages
+**apps/api/.env:**
+DATABASE_URL="file:./dev.db"
+JWT_SECRET=pZIXZXa9lFTwp9PheZSo4uWlXQgI03rc5mJjx3d4BYQ=
+JWT_EXPIRES_IN=7d
+REFRESH_JWT_SECRET=aWejyW2eexPcy9a122KcXjaWelNPlBdDyF6IFL9YuCA=
+REFRESH_EXPIRES_IN=7d
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+**apps/web/.env**
+NEXT_PUBLIC_API_URL=http://localhost:8000
+SESSION_SECRET_KEY=iPtpqCoosch4phBLB9VxDPaLoXeiyKqO0Njwlms20Ls=
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+I know this is a lot, but we're almost done.
 
-### Utilities
+After that is as simple as running:
+`npm run dev` 
+in the root directory
 
-This Turborepo has some additional tools already setup for you:
+If something goes wrong you can check the logs, it will probably be an issue with installing a nestjs package, the logs will guide you through this.
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+## Future features
+Apart from the current features implemented in this project, I also intend on adding some kind of integration with a LLM for you to be able to ask it for context for your invoices. 
 
-### Build
+Some other elements I would like to add are:
+ - Some more Front-end elements to serve as feedback to the user when uploading a file, for example
+ - Better file uploading routines, as the current is quite limited in terms of file size uploading.
+  
 
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
