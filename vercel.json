@@ -1,0 +1,19 @@
+{
+    "version" : 2,
+    "github": {
+        "enabled" : false
+    },
+    "builds" : [
+        {
+            "src" : "/apps/api/src/main.ts",
+            "use" : "@vercel/node"
+        },
+        {
+            "src" : "/apps/web/*",
+            "use" : "@now/static"
+        }
+    ],
+    "routes" : [
+        {"src" : "/(.*)", "dest": "apps/api/src/main.ts", "methods": ["GET"]}
+    ]
+}

@@ -9,9 +9,21 @@ import { OcrModule } from './ocr/ocr.module';
 import { ConfigModule } from '@nestjs/config';
 import { InvoiceModule } from './invoice/invoice.module';
 import { OcrService } from './ocr/ocr.service';
+import {ServeStaticModule} from '@nestjs/serve-static'
+import { join } from 'path';
 
 @Module({
-  imports: [AuthModule, UserModule, OcrModule, ConfigModule.forRoot({ isGlobal: true }), InvoiceModule],
+  imports: [
+    AuthModule,
+    UserModule, 
+    OcrModule, 
+    ConfigModule.forRoot({ isGlobal: true }), 
+    InvoiceModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, "../..", "web"),
+      exclude: ["api/*"]
+    }) 
+  ],
   controllers: [AppController],
   providers: [AppService, PrismaService, OcrService],
 })
