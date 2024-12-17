@@ -21,6 +21,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "@nestjs/serve-static": "^4.0.2"
+    "@nestjs/serve-static": "^4.0.2",
+    "@types/multer": "^1.4.12"
   }
 }
